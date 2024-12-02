@@ -71,19 +71,44 @@ public:
 
 		}
 	} m_literals;
-		public:
+
+
+	class questions {
+	public:
+		questions() {
+		};
+		map<string, list<string>> qMap;
+		void addQuestion(const std::string& theme, const std::string& question) {
+			qMap[theme].push_back(question);
+		}
+
+		std::string getQuestion(const std::string& theme) {
+			auto it = qMap.find(theme);
+			if (it != qMap.end() && !it->second.empty()) {
+				std::string question = it->second.front();
+				it->second.pop_front();
+				return question;
+			}
+			return "No questions available for this theme.";
+		}
+	private:
+		list<string> popQuestions;
+		list<string> scienceQuestions;
+		list<string> sportsQuestions;
+		list<string> rockQuestions;
+
+	}m_questions;
+		
+public:
 			vector<string> players;
 
-			std::vector <int> places;
-			std::vector <int> purses;
+			int places[10];
+			int purses[10];
 			int m_lang;
 
 			bool inPenaltyBox[6];
 
-			list<string> popQuestions;
-			list<string> scienceQuestions;
-			list<string> sportsQuestions;
-			list<string> rockQuestions;
+			
 
 			unsigned int currentPlayer;
 			bool isGettingOutOfPenaltyBox;

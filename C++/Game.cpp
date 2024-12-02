@@ -16,17 +16,19 @@ Game::Game() : places{}, purses{}, currentPlayer(0){
 		ostringstream oss (ostringstream::out);
 		oss << "Pop Question " << i;
 
-		popQuestions.push_back(oss.str());
-
-		char str[255];
+		m_questions.addQuestion("Pop", oss.str());
+			char str[255];
+		
 		sprintf(str, "Science Question %d", i);
-		scienceQuestions.push_back(str);
+		m_questions.addQuestion("Science", str);
+		
 
 		char str1[255];
 		sprintf(str1, "Sports Question %d", i);
-		sportsQuestions.push_back(str1);
-
-		rockQuestions.push_back(createRockQuestion(i));
+		
+		m_questions.addQuestion("Sports", str1);
+		m_questions.addQuestion("Rock", createRockQuestion(i));
+		
 	}
 }
 
@@ -108,26 +110,7 @@ void Game::roll(int roll)
 
 void Game::askQuestion()
 {
-	if (currentCategory() == "Pop")
-	{
-		cout << popQuestions.front() << endl;
-		popQuestions.pop_front();
-	}
-	if (currentCategory() == "Science")
-	{
-		cout << scienceQuestions.front() << endl;
-		scienceQuestions.pop_front();
-	}
-	if (currentCategory() == "Sports")
-	{
-		cout << sportsQuestions.front() << endl;
-		sportsQuestions.pop_front();
-	}
-	if (currentCategory() == "Rock")
-	{
-		cout << rockQuestions.front() << endl;
-		rockQuestions.pop_front();
-	}
+	cout << m_questions.getQuestion(currentCategory()) << endl;
 }
 
 
