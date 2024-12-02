@@ -7,6 +7,10 @@
 using namespace std;
 
 Game::Game() : places{}, purses{}, currentPlayer(0){
+	
+	setLang(GERMAN);
+	cout << getMessage(WELCOME_MSG) << std::endl;
+		
 	for (int i = 0; i < 50; i++)
 	{
 		ostringstream oss (ostringstream::out);
@@ -24,6 +28,15 @@ Game::Game() : places{}, purses{}, currentPlayer(0){
 
 		rockQuestions.push_back(createRockQuestion(i));
 	}
+}
+
+Game::~Game() 
+{
+	cout << getMessage(GOODBYE_MSG);
+}
+std::string Game::getMessage(int id)
+{
+	return m_literals.getMessage(m_lang, id);
 }
 
 string Game::createRockQuestion(int index)
@@ -57,7 +70,7 @@ int Game::howManyPlayers()
 void Game::roll(int roll)
 {
 	cout << players[currentPlayer] << " is the current player" << endl;
-	cout << "They have rolled a " << roll << endl;
+	cout << m_literals.getMessage(m_lang,ROLLMSG) << roll << endl;
 
 	if (inPenaltyBox[currentPlayer])
 	{
@@ -138,7 +151,7 @@ bool Game::wasCorrectlyAnswered()
 	{
 		if (isGettingOutOfPenaltyBox)
 		{
-			cout << CORRECTMSG << endl;
+			cout << "Answer was correct!!!!" << endl;
 			purses[currentPlayer]++;
 			cout << players[currentPlayer]
 			     << " now has "
@@ -164,7 +177,7 @@ bool Game::wasCorrectlyAnswered()
 	else
 	{
 
-		cout << CORRECTMSG << endl;
+		cout << "Answer was correct" << endl;
 		purses[currentPlayer]++;
 		cout << players[currentPlayer]
 				<< " now has "

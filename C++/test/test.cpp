@@ -68,6 +68,41 @@ TEST_F(GameTest, RollInPenaltyBoxEvenRoll) {
     ASSERT_EQ(game.places[game.currentPlayer], 0);  // Position should not change
 }
 
+
+TEST_F(GameTest, WasCorrectlyAnsweredOutput) {
+    setNumberOfPlayers(3);
+    game.currentPlayer = 0;
+
+    std::stringstream buffer;
+    std::streambuf* oldCout = std::cout.rdbuf(buffer.rdbuf());
+
+    game.wasCorrectlyAnswered();
+    std::string expectedOutput = "Answer was corrent!!!!\nPlayer1 now has 1 Gold Coins.\n";
+    ASSERT_EQ(buffer.str(), expectedOutput);
+
+    buffer.str("");
+    buffer.clear();
+
+    game.inPenaltyBox[0] = true;
+    game.isGettingOutOfPenaltyBox = true;
+    game.wasCorrectlyAnswered();
+    expectedOutput = "Answer was correct!!!!\nPlayer1 now has 2 Gold Coins.\n";
+    ASSERT_EQ(buffer.str(), expectedOutput);
+
+    buffer.str("");
+    buffer.clear();
+
+    game.isGettingOutOfPenaltyBox = false;
+    game.wasCorrectlyAnswered();
+    expectedOutput = "";
+    ASSERT_EQ(buffer.str(), expectedOutput);
+
+    std::cout.rdbuf(oldCout);
+}
+
+
+
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
