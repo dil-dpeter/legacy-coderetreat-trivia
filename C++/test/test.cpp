@@ -17,6 +17,7 @@ protected:
             game.add("Player" + std::to_string(i + 1));
         }
     }
+    friend class Game;
 };
 
 TEST_F(GameTest, CreateRockQuestion) {
@@ -38,4 +39,36 @@ TEST_F(GameTest, IsPlayable) {
     EXPECT_TRUE(game.isPlayable());
 
    
+}
+
+TEST_F(GameTest, RollNotInPenaltyBox) {
+    setNumberOfPlayers(3);
+    game.roll(5);
+
+    // Check the player's new position
+    ASSERT_EQ(game.places[game.currentPlayer], 5 % 12);
+}
+
+// Test case for roll function when in penalty box and rolling an odd number
+TEST_F(GameTest, RollInPenaltyBoxOddRoll) {
+    setNumberOfPlayers(3);
+    game.inPenaltyBox[game.currentPlayer] = true;
+    game.roll(3);
+
+     ASSERT_TRUE(game.isGettingOutOfPenaltyBox);
+    ASSERT_EQ(game.places[game.currentPlayer], 3 % 12);
+}
+
+TEST_F(GameTest, RollInPenaltyBoxEvenRoll) {
+    setNumberOfPlayers(3);
+    game.inPenaltyBox[game.currentPlayer] = true;
+    game.roll(4);
+
+    ASSERT_FALSE(game.isGettingOutOfPenaltyBox);
+    ASSERT_EQ(game.places[game.currentPlayer], 0);  // Position should not change
+}
+
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

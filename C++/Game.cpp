@@ -138,7 +138,7 @@ bool Game::wasCorrectlyAnswered()
 	{
 		if (isGettingOutOfPenaltyBox)
 		{
-			cout << "Answer was correct!!!!" << endl;
+			cout << CORRECTMSG << endl;
 			purses[currentPlayer]++;
 			cout << players[currentPlayer]
 			     << " now has "
@@ -164,7 +164,7 @@ bool Game::wasCorrectlyAnswered()
 	else
 	{
 
-		cout << "Answer was corrent!!!!" << endl;
+		cout << CORRECTMSG << endl;
 		purses[currentPlayer]++;
 		cout << players[currentPlayer]
 				<< " now has "

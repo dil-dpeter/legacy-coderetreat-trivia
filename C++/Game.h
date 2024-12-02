@@ -1,14 +1,15 @@
 #include <iostream>
 #include <list>
 #include <vector>
+
 using namespace std;
 
 #ifndef GAME_H_
 #define GAME_H_
-
+#define CORRECTMSG "Answer was correct!"
 class Game{
 
-		private:
+		public:
 			vector<string> players;
 
 			int places[6];
@@ -33,7 +34,7 @@ public:
 	int howManyPlayers();
 	void roll(int roll);
 
-	private:
+public:
 		void askQuestion();
 		string currentCategory();
 
@@ -41,8 +42,9 @@ public:
 					bool wasCorrectlyAnswered();
 					bool wrongAnswer();
 
-private:
+public:
 	bool didPlayerWin();
+
 };
 
 #endif /* GAME_H_ */
