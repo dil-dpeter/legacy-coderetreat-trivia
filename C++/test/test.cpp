@@ -31,10 +31,11 @@ TEST_F(GameTest, IsPlayable) {
     setNumberOfPlayers(1);
     EXPECT_FALSE(game.isPlayable());
 
-
     setNumberOfPlayers(2);
     EXPECT_TRUE(game.isPlayable());
 
     setNumberOfPlayers(3);
     EXPECT_TRUE(game.isPlayable());
+
+   
 }
